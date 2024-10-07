@@ -1,0 +1,70 @@
+{
+  "name": "git-shortcuts",
+  "displayName": "Git Shortcuts",
+  "description": "An extension that offers suggestions for your next git command (using the right arrow key) based on your activity.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:workbench.action.terminal.focus",
+    "onCommand:workbench.action.terminal.new",
+    "onCommand:workbench.action.terminal.split",
+    "onCommand:workbench.action.terminal.kill",
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "git-shortcuts.showSuggestions",
+        "key": "ctrl+shift+'",
+        "when": "terminalFocus",
+        "title": "Offer git command suggestions"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "git-shortcuts.showSuggestions",
+        "key": "ctrl+shift+'",
+        "when": "terminalFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/codemirror": "^5.60.15",
+    "@types/mocha": "^10.0.8",
+    "@types/node": "^20.16.10",
+    "@types/vscode": "^1.94.0",
+    "@types/winattr": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.11.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "fswin": "^3.24.829",
+    "winattr": "^3.0.0"
+  }
+}
